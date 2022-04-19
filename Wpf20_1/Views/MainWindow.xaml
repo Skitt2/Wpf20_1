@@ -1,0 +1,60 @@
+﻿<Window x:Class="Wpf20_1.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Wpf20_1"
+        xmlns:vm="clr-namespace:Wpf20_1.ViewModel"
+        mc:Ignorable="d"
+        Title="Калькулятор" Background="LightBlue" Width="450" Height="600">
+    <Window.DataContext>
+        <vm:MainWindowViewModel/>
+    </Window.DataContext>
+    <Window.Resources>
+        <Style TargetType="Button">
+            <Setter Property="Command" Value="{Binding PushButton}"/>
+        </Style>
+    </Window.Resources>
+    <Grid Margin="5, 5, 5, 5">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="6" Margin="5">
+            <TextBlock x:Name="DisplayBox" Text="{Binding Display, Mode=TwoWay}" FontSize="60" Foreground="White" Margin="10 0 10 10" TextWrapping="Wrap" TextAlignment="Right" Grid.Column="0" Grid.Row="0" />
+        </Grid>
+        <Button CommandParameter="←" Grid.Column="0" Grid.Row="1" Content="←"/>
+        <Button CommandParameter="7" Grid.Column="0" Grid.Row="2" Content="7"/>
+        <Button CommandParameter="4" Grid.Column="0" Grid.Row="3" Content="4"/>
+        <Button CommandParameter="1" Grid.Column="0" Grid.Row="4" Content="1"/>
+        <Button CommandParameter="," Grid.Column="0" Grid.Row="5" Content=","/>
+
+        <Button CommandParameter="+/-" Grid.Column="1" Grid.Row="1" Content="+/-"/>
+        <Button CommandParameter="8" Grid.Column="1" Grid.Row="2" Content="8"/>
+        <Button CommandParameter="5" Grid.Column="1" Grid.Row="3" Content="5"/>
+        <Button CommandParameter="2" Grid.Column="1" Grid.Row="4" Content="2"/>
+
+        <Button CommandParameter="C" Grid.Column="2" Grid.Row="1" Content="C"/>
+        <Button CommandParameter="9" Grid.Column="2" Grid.Row="2" Content="9"/>
+        <Button CommandParameter="6" Grid.Column="2" Grid.Row="3" Content="6"/>
+        <Button CommandParameter="3" Grid.Column="2" Grid.Row="4" Content="3"/>
+        <Button CommandParameter="0" Grid.Column="1" Grid.Row="5" Content="0"/>
+
+        <Button Command="{Binding AriphCommand}" CommandParameter="+" Grid.Column="3" Grid.Row="1" Content="+"/>
+        <Button Command="{Binding AriphCommand}" CommandParameter="-" Grid.Column="3" Grid.Row="2" Content="-"/>
+        <Button Command="{Binding AriphCommand}" CommandParameter="*" Grid.Column="3" Grid.Row="3" Content="*"/>
+        <Button Command="{Binding AriphCommand}" CommandParameter="/" Grid.Column="3" Grid.Row="4" Content="/"/>
+        <Button Command="{Binding AriphCommand}" CommandParameter="=" Grid.Column="2" Grid.ColumnSpan="2" Grid.Row="5" Content="="/>
+    </Grid>
+
+</Window>
