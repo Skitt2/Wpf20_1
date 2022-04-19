@@ -32,7 +32,7 @@ namespace Wpf20_1.ViewModel
         }
 
         private Ariph calculation;
-        private string lastOperation;
+        private string lastOper;
         private bool newDisplayRequired = false;
         private string display;
 
@@ -44,22 +44,22 @@ namespace Wpf20_1.ViewModel
             calculation = new Ariph();
 
             display = "0";
-            FirstOperand = string.Empty;
-            SecondOperand = string.Empty;
+            FirstOper = string.Empty;
+            SecondOper = string.Empty;
             Operation = string.Empty;
-            lastOperation = string.Empty;
+            lastOper = string.Empty;
 
             AriphCommand = new RelayCommand(OnAriphCommandExecute, CanAriphCommandExecuted);
             PushButton = new RelayCommand(OnPushButtonExecute, CanPushButtonExecuted);
         }
 
-        public string FirstOperand
+        public string FirstOper
         {
             get => calculation.FirstOper;
             set { calculation.FirstOper = value; }
         }
 
-        public string SecondOperand
+        public string SecondOper
         {
             get => calculation.SecondOper;
             set { calculation.SecondOper = value; }
@@ -73,8 +73,8 @@ namespace Wpf20_1.ViewModel
 
         public string LastOperation
         {
-            get => lastOperation;
-            set { lastOperation = value; }
+            get => lastOper;
+            set { lastOper = value; }
         }
 
         public string Result
@@ -88,40 +88,6 @@ namespace Wpf20_1.ViewModel
             set => Set(ref display, value);
         }
 
-
-        public ICommand AriphCommand { get; }
-
-        private void OnAriphCommandExecute(object p)
-        {
-            if (FirstOperand == string.Empty || LastOperation == "=")
-            {
-                FirstOperand = display;
-                LastOperation = p.ToString();
-            }
-            else
-            {
-                SecondOperand = display;
-                Operation = lastOperation;
-                calculation.CalculateResult();
-
-                if (Operation == "/" && SecondOperand == "0")
-                {
-                    Display = "Ошибка";
-                    newDisplayRequired = true;
-                    return;
-                }
-                else
-                {
-                    LastOperation = p.ToString();
-                    Display = Result;
-                    FirstOperand = display;
-                }
-            }
-            newDisplayRequired = true;
-        }
-
-        private bool CanAriphCommandExecuted(object p) => true;
-
         //кнопки
         public ICommand PushButton { get; }
 
@@ -131,14 +97,14 @@ namespace Wpf20_1.ViewModel
             {
                 case "C":
                     Display = "0";
-                    FirstOperand = string.Empty;
-                    SecondOperand = string.Empty;
+                    FirstOper = string.Empty;
+                    SecondOper = string.Empty;
                     Operation = string.Empty;
                     LastOperation = string.Empty;
                     break;
                 case "CE":
                     Display = "0";
-                    SecondOperand = string.Empty;
+                    SecondOper = string.Empty;
                     break;
                 case "←":
                     Display = display.Length > 1 ? display.Substring(0, display.Length - 1) : "0";
@@ -167,5 +133,40 @@ namespace Wpf20_1.ViewModel
         }
 
         private bool CanPushButtonExecuted(object p) => true;
+
+        public ICommand AriphCommand { get; }
+
+        private void OnAriphCommandExecute(object p)
+        {
+            if (FirstOper == string.Empty || LastOperation == "=")
+            {
+                FirstOper = display;
+                LastOperation = p.ToString();
+            }
+            else
+            {
+                SecondOper = display;
+                Operation = lastOper;
+                calculation.CalculateResult();
+
+                if (Operation == "/" && SecondOper == "0")
+                {
+                    Display = "Ошибка";
+                    newDisplayRequired = true;
+                    return;
+                }
+                else
+                {
+                    LastOperation = p.ToString();
+                    Display = Result;
+                    FirstOper = display;
+                }
+            }
+            newDisplayRequired = true;
+        }
+
+        private bool CanAriphCommandExecuted(object p) => true;
+
+
     }
 }
